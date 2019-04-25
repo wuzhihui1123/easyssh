@@ -78,6 +78,9 @@ func (ssh_conf *MakeConfig) connect() (*ssh.Session, error) {
 	config := &ssh.ClientConfig{
 		User: ssh_conf.User,
 		Auth: auths,
+		HostKeyCallback: func(hostname string, remote net.Addr, key ssh.PublicKey) error {
+			return nil
+		},
 	}
 
 	client, err := ssh.Dial("tcp", ssh_conf.Server+":"+ssh_conf.Port, config)
